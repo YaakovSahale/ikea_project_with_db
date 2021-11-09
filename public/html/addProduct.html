@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>post form</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
+    />
+    <link rel="stylesheet" href="../css/form.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul class="ulNav">
+          <li class="liNav"><a href="../index.html" target="">home page</a></li>
+          <li class="liNav">
+            <a href="./graphicsCards.html" target="">graphics cards</a>
+          </li>
+          <li class="liNav">
+            <a href="./processors.html" target="">processors</a>
+          </li>
+          <li class="liNav">
+            <a href="./ramMemories.html" target="">ram memories</a>
+          </li>
+          <li class="liNav">
+            <a href="./storageDrive.html" target="">storage drive</a>
+          </li>
+          <li class="liNav">
+            <a href="./shopCart.html" target="">shop cart</a>
+          </li>
+          <li class="liNav">
+            <a href="./postForm.html" target="">add product</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <form id="postForm" action="/" class="decor" style="margin-top: 1%">
+        <div class="form-left-decoration"></div>
+        <div class="form-right-decoration"></div>
+        <div class="circle"></div>
+        <div class="form-inner">
+          <h1 id="titlePost">add new product</h1>
+          <input id="inputName" type="text" placeholder="name" name="name" />
+          <input id="inputPrice" type="text" placeholder="price" name="price" />
+          <input id="inputCategory" type="text" placeholder="category" name="category"/>
+          <input id="inputImg1" type="text" placeholder="image 1" name="image1"/>
+          <input id="inputImg2" type="text" placeholder="image 2" name="image2"/>
+          <textarea id="inputDescription" placeholder="description" rows="5"></textarea>
+          <button type="submit">add product</button>
+          <button type="submit">update</button>
+
+        </div>
+      </form>
+      <script src="../javaScript/addProduct.js"></script>
+    </main>
+  </body>
+</html>

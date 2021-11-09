@@ -1,0 +1,28 @@
+GET http://localhost:8080/products
+# get all
+
+###
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "category": "storage drive",
+  "description": "lorem all the way",
+  "img": ["https://cdn.pixabay.com/photo/2021/10/30/17/33/cappadocia-6755061__340.jpg","https://cdn.pixabay.com/photo/2013/08/10/17/03/animal-171318_960_720.jpg"],
+  "name": "WD-nvme500",
+  "price": 100
+}
+
+###
+
+DELETE http://localhost:8080/products/618ad98eaf32b321cc8175eb
+
+###
+PATCH http://localhost:8080/products/6189189721ecd51f5c30174c
+Content-Type: application/json
+
+{
+  "price": 500
+}
+
+
