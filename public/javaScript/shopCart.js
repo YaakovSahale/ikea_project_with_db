@@ -7,53 +7,19 @@ let tdSubTotal = document.getElementsByClassName("tdSubTotal");
 let finalPrice = document.getElementById("finalPrice");
 let finalPriceNum = 0;
 
-let myCart = [
-  {
-    id: 1,
-    name: "amd560",
-    price: "100",
-    category: "graphics cards",
-    img: ["../productsImages/amd560_1.jfif", "../productsImages/amd560_2.jfif"],
-    description:
-      "Lorem ipsum dolor sit.Pariatur eaque expedita dicta!Delectus omnis dolorum neque!Sed aperiam quos quo!",
-  },
-  {
-    id: 2,
-    name: "amd570",
-    price: "200",
-    category: "graphics cards",
-    img: ["../productsImages/amd570_1.jfif", "../productsImages/amd570_2.jfif"],
-    description:
-      "Lorem ipsum dolor sit.Pariatur eaque expedita dicta!Delectus omnis dolorum neque!Sed aperiam quos quo!",
-  },
-  {
-    id: 3,
-    name: "amd5500",
-    price: "300",
-    category: "graphics cards",
-    img: [
-      "../productsImages/amd5500_1.jfif",
-      "../productsImages/amd5500_2.jfif",
-    ],
-    description:
-      "Lorem ipsum dolor sit.Pariatur eaque expedita dicta!Delectus omnis dolorum neque!Sed aperiam quos quo!",
-  },
-  {
-    id: 4,
-    name: "amd5700",
-    price: "400",
-    category: "graphics cards",
-    img: [
-      "../productsImages/amd5700_1.jfif",
-      "../productsImages/amd5700_2.jfif",
-    ],
-    description:
-      "Lorem ipsum dolor sit.Pariatur eaque expedita dicta!Delectus omnis dolorum neque!Sed aperiam quos quo!",
-  },
-];
 
+axios
+  .get(`/shopCart`)
+  .then((response) => {
+    const newCart = response.data.products
+    displayCart(newCart)
+  })
+  .catch((error) => {
+    console.log(`got error`);
+    console.log(error);
+  });
 
-function displayCart() {
+function displayCart(myCart) {
   for (let i = 0; i < myCart.length; i++) {
     cartTable.innerHTML += `<tr class="trItem">
     <td >${myCart[i].name}</td>
@@ -73,8 +39,7 @@ let strTh = `<tr>
 <th></th>
 </tr>`;
 
-displayCart();
-console.log(myCart);
+// displayCart();
 
 function btnDelete(productId) {
   for (let i = 0; i < myCart.length; i++) {
@@ -89,13 +54,12 @@ function btnDelete(productId) {
 }
 
 function displayTotalPrice() {
-  finalPriceNum = 0
+  finalPriceNum = 0;
   for (let i = 0; i < myCart.length; i++) {
     tdSubTotal[i].innerHTML = `${myCart[i].price * inputAmount[i].value}$`;
     finalPriceNum += myCart[i].price * inputAmount[i].value;
   }
   finalPrice.innerHTML = `final price:${finalPriceNum}$`;
-
 
   for (let i = 0; i < myCart.length; i++) {
     inputAmount[i].onchange = () => {
@@ -110,5 +74,4 @@ function displayTotalPrice() {
   }
 }
 
-displayTotalPrice();
-
+// displayTotalPrice();

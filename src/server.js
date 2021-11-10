@@ -19,10 +19,6 @@ APP.post(`/products`, (req, res) => {
   utils.postProduct(req, res);
 });
 
-
-
-
-
 APP.delete(`/products/:id`, (req, res) => {
   utils.deleteProduct(req, res);
 });
@@ -31,9 +27,18 @@ APP.patch(`/products/:id`, (req, res) => {
   utils.patchProduct(req, res);
 });
 
-APP.get("/shopCart", (req, res) => {
-  utils.getAll(req, res);
+
+
+
+
+APP.patch("/shopCart", (req, res) => {
+  utils.addProductToCart(req,res)
 });
+
+APP.get("/shopCart", (req, res) => {
+  utils.getCartProducts(req,res)
+});
+
 
 
 APP.listen(PORT, () => {

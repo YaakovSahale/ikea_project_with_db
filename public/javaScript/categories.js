@@ -1,7 +1,6 @@
-
 const myContainer = document.getElementById("container");
 const btnShop = document.getElementsByClassName("btnShop");
-const categoryText = document.getElementById("categoryText").innerText
+const categoryText = document.getElementById("categoryText").innerText;
 
 let shopArray = [];
 
@@ -30,20 +29,46 @@ function displayCategories(category, container, products) {
           <span class="bold">description:</span>${products[i].description}<br><br>
           </p>
           <div class="btnContainer">
-          <button class="btnShop">add to shop</button>
-          <button class="btnShop" onclick="deleteFromDB('${products[i]._id}')">delete</button>
+          <button class="btnShop" onclick="btnAddToCart('${products[i]._id}','${products[i].name}','${products[i].price}','${products[i].category}','${products[i].img}','${products[i].description}')">add to cart</button>
+          <button class="btnShop" onclick="btnDeleteProduct('${products[i]._id}')">delete</button>
+          <form method="get" action="btnUpdateProduct.html"><input type="submit" id="1" name="${products[i]._id}" value="update"></form>
           </div>
           </article>`;
     }
   }
 }
 
-function deleteFromDB (id){
+function btnDeleteProduct(id) {
   console.log(id);
   axios
     .delete(`/products/${id}`)
-    .then((res)=>{console.log(res)})
-    .catch((err)=>{console.log(err)})
-
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
+function btnUpdateProduct(id) {
+  console.log(id);
+  axios
+    .patch(`/products/${id}`)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function btnAddToCart(id, name, price, category, img, description) {
+  axios
+    .patch(`/shopCart`, {id, name, price, category, img, description})
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}

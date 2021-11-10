@@ -18,11 +18,19 @@ Content-Type: application/json
 DELETE http://localhost:8080/products/618ad98eaf32b321cc8175eb
 
 ###
-PATCH http://localhost:8080/products/6189189721ecd51f5c30174c
+PATCH http://localhost:8080/products/61896b51739e3b024ac9f9fc
 Content-Type: application/json
 
 {
-  "price": 500
+  "price": 1001
 }
 
+###
+
+PATCH http://localhost:8080/shopCart
+Content-Type: application/json
+
+{
+   "name": "koka"
+}
 
