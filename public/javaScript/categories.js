@@ -31,7 +31,7 @@ function displayCategories(category, container, products) {
           <div class="btnContainer">
           <button class="btnShop" onclick="btnAddToCart('${products[i]._id}','${products[i].name}','${products[i].price}','${products[i].category}','${products[i].img}','${products[i].description}')">add to cart</button>
           <button class="btnShop" onclick="btnDeleteProduct('${products[i]._id}')">delete</button>
-          <form method="get" action="btnUpdateProduct.html"><input type="submit" id="1" name="${products[i]._id}" value="update"></form>
+          <form method="get" action="updateProduct.html"><button class="btnShop" type="submit" name="update" value="${products[i]._id}">update</button></form>
           </div>
           </article>`;
     }
@@ -50,17 +50,7 @@ function btnDeleteProduct(id) {
     });
 }
 
-function btnUpdateProduct(id) {
-  console.log(id);
-  axios
-    .patch(`/products/${id}`)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
+
 
 function btnAddToCart(id, name, price, category, img, description) {
   axios

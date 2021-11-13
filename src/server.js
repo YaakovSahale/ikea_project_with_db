@@ -1,15 +1,16 @@
 const express = require(`express`);
+const { appendFile } = require("fs");
 const APP = express();
-const PORT = 8080;
-const path = require(`path`)
+const path = require(`path`);
 const utils = require(`./utils`);
-const publicPath = path.join(__dirname, "..", "public")
 
-APP.use(express.static(publicPath))
+const PORT = process.env.PORT || 8080;
+const publicPath = path.join(__dirname, "..", "public");
+
+APP.use(express.static(publicPath));
 APP.use(express.json());
 
-
-
+//products routes
 
 APP.get("/products", (req, res) => {
   utils.getAll(req, res);
@@ -27,17 +28,37 @@ APP.patch(`/products/:id`, (req, res) => {
   utils.patchProduct(req, res);
 });
 
-
-
-
+//cart routes
 
 APP.patch("/shopCart", (req, res) => {
-  utils.addProductToCart(req,res)
+  utils.addProductToCart(req, res);
+});
+
+APP.patch("/cartProduct/:id", (req, res) => {
+  utils.deleteCartProduct(req, res);
+});
+
+APP.post("/addShopCart", (req, res) => {
+  utils.addCart(req, res);
 });
 
 APP.get("/shopCart", (req, res) => {
-  utils.getCartProducts(req,res)
+  utils.getCartProducts(req, res);
 });
+
+//contact routes
+
+APP.post(`/contact`, (req, res) => {
+  utils.addContact(req, res);
+});
+
+APP.get(`/contacts`, (req, res) => {
+  utils.getAllContacts(req, res);
+});
+
+//.............................
+
+
 
 
 

@@ -31,6 +31,28 @@ PATCH http://localhost:8080/shopCart
 Content-Type: application/json
 
 {
-   "name": "koka"
+  "name": "koka"
 }
+
+###
+
+POST http://localhost:8080/contact
+Content-Type: application/json
+
+{
+  "message": "ma kore"
+}
+
+###
+
+GET http://localhost:8080/contacts
+
+###
+
+PATCH  http://localhost:8080/cartProduct/61829b941e543caadf088a1d
+
+###
+
+GET http://localhost:8080/shopCart
+
 

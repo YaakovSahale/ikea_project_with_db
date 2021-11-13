@@ -37,18 +37,21 @@
     </header>
 
     <main>
-      <form action="/" class="decor">
+      <form action="/" class="decor" id="postForm">
         <div class="form-left-decoration"></div>
         <div class="form-right-decoration"></div>
         <div class="circle"></div>
         <div class="form-inner">
           <h1 id="titlePost">Contact us</h1>
-          <input type="text" placeholder="Username" />
-          <input type="email" placeholder="Email" />
-          <textarea placeholder="Message..." rows="5"></textarea>
+          <input id="userName" type="text" placeholder="User name" />
+          <input id="email" type="email" placeholder="Email" />
+          <input id="phoneNumber" type="number" placeholder="Phone number" />
+          <textarea id="message" placeholder="Message..." rows="5"></textarea>
           <button type="submit" href="/">Submit</button>
+          <a href="./allContact.html"><button type="button">show contact</button></a>
         </div>
       </form>
+      <script src="../javaScript/contactUs.js"></script>
     </main>
   </body>
 </html>

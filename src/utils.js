@@ -1,7 +1,15 @@
 const mongoDB = require(`mongodb`);
 const MongoClient = mongoDB.MongoClient;
 const ObjectId = mongoDB.ObjectId;
-const mongoURL = "mongodb://localhost:27017/";
+
+
+
+const mongoURL = "mongodb+srv://yaakov:035367858@cluster0.l4xod.mongodb.net/test";
+// const PUBLIC_URL = process.env.PUBLIC_URL
+// const mongoURL = PUBLIC_URL;
+// console.log(PUBLIC_URL);
+
+//products
 
 function getAll(req, res) {
   MongoClient.connect(mongoURL, (err, db) => {
@@ -65,10 +73,26 @@ function patchProduct(req, res) {
   });
 }
 
+//cart
+
+function addCart(req, res) {
+  MongoClient.connect(mongoURL, (err, db) => {
+    if (err) throw err;
+    const ikeaDB = db.db(`ikeaDB`);
+    ikeaDB
+      .collection(`carts`)
+      .insertOne({products:[]}, (err, resNewCart) => {
+        if (err) throw console.log(err);
+        console.log(resNewCart);
+        res.send(resNewCart);
+      });
+  });
+}
+
 function addProductToCart(req, res) {
   MongoClient.connect(mongoURL, (err, db) => {
     if (err) throw err;
-    const newCart = {
+    const newProduct = {
       _id: ObjectId(req.body.id),
       name: req.body.name,
       price: req.body.price,
@@ -80,8 +104,8 @@ function addProductToCart(req, res) {
     ikeaDB
       .collection(`carts`)
       .updateOne(
-        { _id: ObjectId("618c394bf1249f4a57cdf618") },
-        { $push: { products: newCart } },
+        { _id: ObjectId("619044da59dc266e28e3b5ec") },
+        { $push: { products: newProduct } },
         (err, addedCart) => {
           if (err) throw err;
           res.send(addedCart);
@@ -97,22 +121,93 @@ function getCartProducts(req, res) {
     const ikeaDB = db.db(`ikeaDB`);
     ikeaDB
       .collection(`carts`)
-      .findOne({ _id: ObjectId("618c394bf1249f4a57cdf618") }, (err, cart) => {
+      .findOne({ _id: ObjectId("619044da59dc266e28e3b5ec") }, (err, cart) => {
         if (err) throw err;
-        res.send(cart)
+        res.send(cart);
         console.log(cart);
       });
   });
 }
 
-// MongoClient.connect(mongoURL, (err, db) => {
-//   if (err) throw err;
-//   const ikeaDB = db.db(`ikeaDB`);
-//   ikeaDB.collection(`carts`).insertOne({ products: [] }, (err, added) => {
+// function deleteCartProduct(req, res) {
+//   MongoClient.connect(mongoURL, (err, db) => {
 //     if (err) throw err;
-//     console.log(added);
+//     const productId = req.params.id;
+//     const ikeaDB = db.db(`ikeaDB`);
+//     ikeaDB
+//       .collection(`carts`)
+//       .findOneAndUpdate(
+//         { _id: ObjectId(`618c394bf1249f4a57cdf618`) },
+//         { $pull: { products: { _id: productId} } },
+//         (err, updatedCart) => {
+//           if (err) throw err;
+//           res.send(updatedCart);
+//           console.log(updatedCart);
+//         }
+//       );
 //   });
-// });
+// }
+
+function deleteCartProduct(req, res) {
+  MongoClient.connect(mongoURL, (error, connection) => {
+    if (error) {
+      throw error;
+    }
+    const productId = req.params.id;
+    const ikeaDB = connection.db(`ikeaDB`);
+    ikeaDB
+      .collection("products")
+      .findOne({ _id: ObjectId(productId) }, (error, product) => {
+        if (error) {
+          throw error;
+        }
+        console.log(product);
+        ikeaDB
+          .collection("carts")
+          .updateOne(
+            { _id: ObjectId(`619044da59dc266e28e3b5ec`) },
+            { $pull: { products: product } },
+            (error, response) => {
+              if (error) {
+                throw error;
+              }
+              console.log(response);
+              console.log(product);
+            }
+          );
+      });
+  });
+}
+//contact
+
+function addContact(req, res) {
+  MongoClient.connect(mongoURL, (err, db) => {
+    if (err) throw err;
+    const ikeaDB = db.db(`ikeaDB`);
+    const newContact = req.body;
+    ikeaDB.collection(`contacts`).insertOne(newContact, (err, resContact) => {
+      if (err) throw console.log(err);
+      console.log(resContact);
+      res.send(resContact);
+    });
+  });
+}
+
+function getAllContacts(req, res) {
+  MongoClient.connect(mongoURL, (err, db) => {
+    if (err) throw err;
+    const ikeaDB = db.db(`ikeaDB`);
+    ikeaDB
+      .collection(`contacts`)
+      .find({})
+      .toArray((err, contacts) => {
+        if (err) throw console.log(err);
+        res.send(contacts);
+      });
+  });
+}
+
+
 
 module.exports = {
   getAll,
@@ -121,4 +216,8 @@ module.exports = {
   patchProduct,
   addProductToCart,
   getCartProducts,
+  addContact,
+  getAllContacts,
+  deleteCartProduct,
+  addCart,
 };

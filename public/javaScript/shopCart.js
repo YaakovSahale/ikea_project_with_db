@@ -1,3 +1,4 @@
+
 let trItem = document.getElementsByClassName("trItem");
 let btnRemove = document.getElementsByClassName("btnRemove");
 let cartTable = document.getElementById("cartTable");
@@ -6,18 +7,22 @@ let tdPrice = document.getElementsByClassName("tdPrice");
 let tdSubTotal = document.getElementsByClassName("tdSubTotal");
 let finalPrice = document.getElementById("finalPrice");
 let finalPriceNum = 0;
+let newCart;
 
+function getNewCart() {
+  axios
+    .get(`/shopCart`)
+    .then((response) => {
+      newCart = response.data.products;
+      displayCart(newCart);
+    })
+    .catch((error) => {
+      console.log(`got error`);
+      console.log(error);
+    });
+}
 
-axios
-  .get(`/shopCart`)
-  .then((response) => {
-    const newCart = response.data.products
-    displayCart(newCart)
-  })
-  .catch((error) => {
-    console.log(`got error`);
-    console.log(error);
-  });
+getNewCart();
 
 function displayCart(myCart) {
   for (let i = 0; i < myCart.length; i++) {
@@ -41,16 +46,30 @@ let strTh = `<tr>
 
 // displayCart();
 
+// function btnDelete(productId) {
+//   for (let i = 0; i < newCart.length; i++) {
+//     if (newCart[i].id == productId) {
+//       newCart.splice(i, 1);
+//       cartTable.innerHTML = strTh;
+//       displayCart();
+//       console.log(newCart);
+//     }
+//   }
+//   displayTotalPrice();
+// }
+
 function btnDelete(productId) {
-  for (let i = 0; i < myCart.length; i++) {
-    if (myCart[i].id == productId) {
-      myCart.splice(i, 1);
+  axios
+    .patch(`/cartProduct/${productId}`)
+    .then((res) => {
+      console.log(res.data);
       cartTable.innerHTML = strTh;
-      displayCart();
-      console.log(myCart);
-    }
-  }
-  displayTotalPrice();
+      getNewCart();
+      displayTotalPrice();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 function displayTotalPrice() {
@@ -73,5 +92,3 @@ function displayTotalPrice() {
     };
   }
 }
-
-// displayTotalPrice();
