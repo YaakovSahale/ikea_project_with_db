@@ -1,18 +1,17 @@
 const mongoDB = require(`mongodb`);
 const MongoClient = mongoDB.MongoClient;
 const ObjectId = mongoDB.ObjectId;
+const dotenv = require(`dotenv`);
+dotenv.config();
 
-
-
-const mongoURL = "mongodb+srv://yaakov:035367858@cluster0.l4xod.mongodb.net/test";
-// const PUBLIC_URL = process.env.PUBLIC_URL
-// const mongoURL = PUBLIC_URL;
-// console.log(PUBLIC_URL);
+// const PUBLIC_URL = "mongodb+srv://yaakov:035367858@cluster0.l4xod.mongodb.net/test";
+const PUBLIC_URL = process.env.PUBLIC_URL;
+console.log(PUBLIC_URL);
 
 //products
 
 function getAll(req, res) {
-  MongoClient.connect(mongoURL, (err, db) => {
+  MongoClient.connect(PUBLIC_URL, (err, db) => {
     if (err) throw err;
     const ikeaDB = db.db(`ikeaDB`);
     ikeaDB
@@ -26,7 +25,7 @@ function getAll(req, res) {
 }
 
 function postProduct(req, res) {
-  MongoClient.connect(mongoURL, (err, db) => {
+  MongoClient.connect(PUBLIC_URL, (err, db) => {
     if (err) throw err;
     const ikeaDB = db.db(`ikeaDB`);
     const newProduct = req.body;
@@ -41,7 +40,7 @@ function postProduct(req, res) {
 }
 
 function deleteProduct(req, res) {
-  MongoClient.connect(mongoURL, (err, db) => {
+  MongoClient.connect(PUBLIC_URL, (err, db) => {
     if (err) throw err;
     const id = req.params.id;
     const ikeaDB = db.db(`ikeaDB`);
@@ -55,7 +54,7 @@ function deleteProduct(req, res) {
 }
 
 function patchProduct(req, res) {
-  MongoClient.connect(mongoURL, (err, db) => {
+  MongoClient.connect(PUBLIC_URL, (err, db) => {
     if (err) throw err;
     const id = req.params.id;
     const patch = req.body;
@@ -76,12 +75,12 @@ function patchProduct(req, res) {
 //cart
 
 function addCart(req, res) {
-  MongoClient.connect(mongoURL, (err, db) => {
+  MongoClient.connect(PUBLIC_URL, (err, db) => {
     if (err) throw err;
     const ikeaDB = db.db(`ikeaDB`);
     ikeaDB
       .collection(`carts`)
-      .insertOne({products:[]}, (err, resNewCart) => {
+      .insertOne({ products: [] }, (err, resNewCart) => {
         if (err) throw console.log(err);
         console.log(resNewCart);
         res.send(resNewCart);
@@ -90,7 +89,7 @@ function addCart(req, res) {
 }
 
 function addProductToCart(req, res) {
-  MongoClient.connect(mongoURL, (err, db) => {
+  MongoClient.connect(PUBLIC_URL, (err, db) => {
     if (err) throw err;
     const newProduct = {
       _id: ObjectId(req.body.id),
@@ -116,7 +115,7 @@ function addProductToCart(req, res) {
 }
 
 function getCartProducts(req, res) {
-  MongoClient.connect(mongoURL, (err, db) => {
+  MongoClient.connect(PUBLIC_URL, (err, db) => {
     if (err) throw err;
     const ikeaDB = db.db(`ikeaDB`);
     ikeaDB
@@ -130,7 +129,7 @@ function getCartProducts(req, res) {
 }
 
 // function deleteCartProduct(req, res) {
-//   MongoClient.connect(mongoURL, (err, db) => {
+//   MongoClient.connect(PUBLIC_URL, (err, db) => {
 //     if (err) throw err;
 //     const productId = req.params.id;
 //     const ikeaDB = db.db(`ikeaDB`);
@@ -149,7 +148,7 @@ function getCartProducts(req, res) {
 // }
 
 function deleteCartProduct(req, res) {
-  MongoClient.connect(mongoURL, (error, connection) => {
+  MongoClient.connect(PUBLIC_URL, (error, connection) => {
     if (error) {
       throw error;
     }
@@ -181,7 +180,7 @@ function deleteCartProduct(req, res) {
 //contact
 
 function addContact(req, res) {
-  MongoClient.connect(mongoURL, (err, db) => {
+  MongoClient.connect(PUBLIC_URL, (err, db) => {
     if (err) throw err;
     const ikeaDB = db.db(`ikeaDB`);
     const newContact = req.body;
@@ -194,7 +193,7 @@ function addContact(req, res) {
 }
 
 function getAllContacts(req, res) {
-  MongoClient.connect(mongoURL, (err, db) => {
+  MongoClient.connect(PUBLIC_URL, (err, db) => {
     if (err) throw err;
     const ikeaDB = db.db(`ikeaDB`);
     ikeaDB
@@ -206,8 +205,6 @@ function getAllContacts(req, res) {
       });
   });
 }
-
-
 
 module.exports = {
   getAll,

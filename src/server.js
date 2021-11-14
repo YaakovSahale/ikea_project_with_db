@@ -3,6 +3,8 @@ const { appendFile } = require("fs");
 const APP = express();
 const path = require(`path`);
 const utils = require(`./utils`);
+const dotenv = require(`dotenv`);
+dotenv.config();
 
 const PORT = process.env.PORT || 8080;
 const publicPath = path.join(__dirname, "..", "public");
@@ -57,10 +59,6 @@ APP.get(`/contacts`, (req, res) => {
 });
 
 //.............................
-
-
-
-
 
 APP.listen(PORT, () => {
   console.log(`server is listens on port: ${PORT}`);
