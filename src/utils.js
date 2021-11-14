@@ -1,11 +1,8 @@
+require("dotenv").config();
 const mongoDB = require(`mongodb`);
 const MongoClient = mongoDB.MongoClient;
 const ObjectId = mongoDB.ObjectId;
-const dotenv = require(`dotenv`);
 
-dotenv.config();
-
-// const PUBLIC_URL = "mongodb+srv://yaakov:035367858@cluster0.l4xod.mongodb.net/test";
 const PUBLIC_URL = process.env.PUBLIC_URL;
 console.log(PUBLIC_URL);
 
@@ -129,55 +126,28 @@ function getCartProducts(req, res) {
   });
 }
 
-// function deleteCartProduct(req, res) {
-//   MongoClient.connect(PUBLIC_URL, (err, db) => {
-//     if (err) throw err;
-//     const productId = req.params.id;
-//     const ikeaDB = db.db(`ikeaDB`);
-//     ikeaDB
-//       .collection(`carts`)
-//       .findOneAndUpdate(
-//         { _id: ObjectId(`618c394bf1249f4a57cdf618`) },
-//         { $pull: { products: { _id: productId} } },
-//         (err, updatedCart) => {
-//           if (err) throw err;
-//           res.send(updatedCart);
-//           console.log(updatedCart);
-//         }
-//       );
-//   });
-// }
 
 function deleteCartProduct(req, res) {
-  MongoClient.connect(PUBLIC_URL, (error, connection) => {
-    if (error) {
-      throw error;
-    }
+  MongoClient.connect(PUBLIC_URL, (err, db) => {
+    if (err) throw err;
     const productId = req.params.id;
-    const ikeaDB = connection.db(`ikeaDB`);
+    const ikeaDB = db.db(`ikeaDB`);
     ikeaDB
-      .collection("products")
-      .findOne({ _id: ObjectId(productId) }, (error, product) => {
-        if (error) {
-          throw error;
+      .collection(`carts`)
+      .findOneAndUpdate(
+        { _id: ObjectId(`619044da59dc266e28e3b5ec`) },
+        { $pull: { products: { _id: ObjectId(productId)} } },
+        (err, updatedCart) => {
+          if (err) throw err;
+          res.send(updatedCart);
+          console.log(updatedCart);
         }
-        console.log(product);
-        ikeaDB
-          .collection("carts")
-          .updateOne(
-            { _id: ObjectId(`619044da59dc266e28e3b5ec`) },
-            { $pull: { products: product } },
-            (error, response) => {
-              if (error) {
-                throw error;
-              }
-              console.log(response);
-              console.log(product);
-            }
-          );
-      });
+      );
   });
 }
+
+
+
 //contact
 
 function addContact(req, res) {

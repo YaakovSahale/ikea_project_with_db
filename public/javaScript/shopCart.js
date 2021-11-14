@@ -26,12 +26,12 @@ getNewCart();
 
 function displayCart(myCart) {
   for (let i = 0; i < myCart.length; i++) {
-    cartTable.innerHTML += `<tr class="trItem">
+    cartTable.innerHTML += `<tr class="trItem" id="card${i}">
     <td >${myCart[i].name}</td>
     <td><input class="inputAmount" size="1" value="1" min="1" max="999" type="number" style='width:25%'/></td>
     <td class="tdPrice" >${myCart[i].price}</td>
     <td class="tdSubTotal">${myCart[i].price}$</td>
-    <td><img class="btnRemove" onclick="btnDelete(${myCart[i].id})" src="../images/trash_icon.png"></td>
+    <td><img class="btnRemove" onclick="btnDelete('${myCart[i]._id}',"card${i}")" src="../images/trash_icon.png"></td>
     </tr>`;
   }
 }
@@ -60,12 +60,12 @@ let strTh = `<tr>
 
 function btnDelete(productId) {
   axios
-    .patch(`/cartProduct/${productId}`)
+    .delete(`/cartProduct/${productId}`)
     .then((res) => {
       console.log(res.data);
-      cartTable.innerHTML = strTh;
-      getNewCart();
-      displayTotalPrice();
+      // cartTable.innerHTML = strTh;
+      // getNewCart();
+      // displayTotalPrice();
     })
     .catch((err) => {
       console.log(err);

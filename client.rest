@@ -49,7 +49,7 @@ GET http://localhost:8080/contacts
 
 ###
 
-PATCH  http://localhost:8080/cartProduct/61829b941e543caadf088a1d
+DELETE   http://localhost:8080/cartProduct/619044809d8908f308887e1f
 
 ###
 

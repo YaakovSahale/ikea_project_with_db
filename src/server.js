@@ -37,7 +37,7 @@ APP.patch("/shopCart", (req, res) => {
   utils.addProductToCart(req, res);
 });
 
-APP.patch("/cartProduct/:id", (req, res) => {
+APP.delete("/cartProduct/:id", (req, res) => {
   utils.deleteCartProduct(req, res);
 });
 
