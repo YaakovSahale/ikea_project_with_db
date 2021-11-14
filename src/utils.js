@@ -1,9 +1,6 @@
 const mongoDB = require(`mongodb`);
 const MongoClient = mongoDB.MongoClient;
-
-
 const ObjectId = mongoDB.ObjectId;
-
 const dotenv = require(`dotenv`);
 
 dotenv.config();

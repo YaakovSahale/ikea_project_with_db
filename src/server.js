@@ -1,12 +1,13 @@
+require('dotenv').config();
 const express = require(`express`);
-const { appendFile } = require("fs");
 const APP = express();
 const path = require(`path`);
 const utils = require(`./utils`);
-const dotenv = require(`dotenv`);
-dotenv.config();
 
-const PORT = process.env.PORT || 8080;
+
+
+const PORT = process.env.PORT
+console.log(PORT);
 const publicPath = path.join(__dirname, "..", "public");
 
 APP.use(express.static(publicPath));
