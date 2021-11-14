@@ -63,9 +63,9 @@ function btnDelete(productId) {
     .delete(`/cartProduct/${productId}`)
     .then((res) => {
       console.log(res.data);
-      // cartTable.innerHTML = strTh;
-      // getNewCart();
-      // displayTotalPrice();
+      cartTable.innerHTML = strTh;
+      getNewCart();
+      displayTotalPrice();
     })
     .catch((err) => {
       console.log(err);

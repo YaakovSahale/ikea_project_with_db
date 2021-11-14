@@ -5,24 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="../css/allContact.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/allContact.css" />
     <title>Document</title>
   </head>
   <body>
+    <header>
+      <nav>
+        <ul class="ulNav">
+          <li class="liNav"><a href="../index.html" target="">home page</a></li>
+          <li class="liNav">
+            <a href="./graphicsCards.html" target="">graphics cards</a>
+          </li>
+          <li class="liNav">
+            <a href="./processors.html" target="">processors</a>
+          </li>
+          <li class="liNav">
+            <a href="./ramMemories.html" target="">ram memories</a>
+          </li>
+          <li class="liNav">
+            <a href="./storageDrive.html" target="">storage drive</a>
+          </li>
+          <li class="liNav">
+            <a href="./shopCart.html" target="">shop cart</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
     <div class="container">
       <h1>contacts</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>user name</th>
-                    <th>email</th>
-                    <th>phone number</th>
-                    <th>message</th>
-                </tr>
-            </thead>
-            <tbody id="tbody">
-            </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr>
+            <th>user name</th>
+            <th>email</th>
+            <th>phone number</th>
+            <th>message</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
     </div>
     <script src="../javaScript/allContact.js"></script>
   </body>
