@@ -6,11 +6,19 @@ postForm.addEventListener("submit", contactUs);
 function contactUs(e) {
   e.preventDefault();
 
-  const userName = document.getElementById("userName").value;
-  const email = document.getElementById("email").value;
-  const phoneNumber = document.getElementById("phoneNumber").value;
-  const message = document.getElementById("message").value;
+  const userName = document.getElementById("userName").value;     
   
+  console.log(userName);
+  const email = document.getElementById("email").value;
+
+
+  const phoneNumber = document.getElementById("phoneNumber").value;  
+  
+  
+  const message = document.getElementById("message").value;                          
+  
+
+
 
   axios
     .post(`/contact`, {
